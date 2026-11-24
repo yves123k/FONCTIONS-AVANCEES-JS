@@ -1,0 +1,12 @@
+{
+  "name": "chez-john-doe-js",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "type": "module",
+  "description": "Kit d'exercices du module JavaScript avancé (B2 DEV) : données, serveur d'entraînement et fichiers de départ.",
+  "scripts": {
+    "serveur": "node serveur/serveur.js"
+  }
+}
