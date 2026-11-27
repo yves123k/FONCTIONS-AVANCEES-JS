@@ -6,7 +6,12 @@ import { verifier, bilan } from "../outils/verifier.js";
 
 // 1. "Commande 101 – Koffi (Cocody)" — destructurez dans les paramètres
 function resumerCommande(commande) {
-  // À compléter
+  const {
+    id,
+    client,
+    adresse: { quartier },
+  } = commande;
+  return `Commande ${id} - ${client} (${quartier})`;
 }
 
 // 2. categorie vaut "plat" et disponible vaut true par défaut
@@ -58,19 +63,80 @@ const essayer = (fn) => {
   }
 };
 console.log("\nÉtape 1");
-verifier("1. resumerCommande", essayer(() => resumerCommande(commandes[0])), "Commande 101 – Koffi (Cocody)");
-verifier("2. creerPlat avec valeurs par défaut", essayer(() => creerPlat({ prix: 500, nom: "Jus de baobab" })), { nom: "Jus de baobab", prix: 500, categorie: "plat", disponible: true });
-verifier("2. creerPlat avec toutes les valeurs", essayer(() => creerPlat({ nom: "Thé", prix: 300, categorie: "boisson", disponible: false })), { nom: "Thé", prix: 300, categorie: "boisson", disponible: false });
-verifier("3. sansIdentifiant", essayer(() => sansIdentifiant(plats[8])), { nom: "Bissap", categorie: "boisson", prix: 500, disponible: true, epice: false });
+verifier(
+  "1. resumerCommande",
+  essayer(() => resumerCommande(commandes[0])),
+  "Commande 101 – Koffi (Cocody)",
+);
+verifier(
+  "2. creerPlat avec valeurs par défaut",
+  essayer(() => creerPlat({ prix: 500, nom: "Jus de baobab" })),
+  { nom: "Jus de baobab", prix: 500, categorie: "plat", disponible: true },
+);
+verifier(
+  "2. creerPlat avec toutes les valeurs",
+  essayer(() =>
+    creerPlat({
+      nom: "Thé",
+      prix: 300,
+      categorie: "boisson",
+      disponible: false,
+    }),
+  ),
+  { nom: "Thé", prix: 300, categorie: "boisson", disponible: false },
+);
+verifier(
+  "3. sansIdentifiant",
+  essayer(() => sansIdentifiant(plats[8])),
+  {
+    nom: "Bissap",
+    categorie: "boisson",
+    prix: 500,
+    disponible: true,
+    epice: false,
+  },
+);
 verifier("3. le plat d'origine garde son id", plats[8].id, "B01");
 console.log("\nÉtape 2");
-verifier("4. premierEtLeReste", essayer(() => premierEtLeReste(["a", "b", "c"])), { premier: "a", reste: ["b", "c"] });
-verifier("5. echanger", essayer(() => echanger([1, 2])), [2, 1]);
-verifier("6. total(1000, 500, 300)", essayer(() => total(1000, 500, 300)), 1800);
-verifier("6. total()", essayer(() => total()), 0);
+verifier(
+  "4. premierEtLeReste",
+  essayer(() => premierEtLeReste(["a", "b", "c"])),
+  { premier: "a", reste: ["b", "c"] },
+);
+verifier(
+  "5. echanger",
+  essayer(() => echanger([1, 2])),
+  [2, 1],
+);
+verifier(
+  "6. total(1000, 500, 300)",
+  essayer(() => total(1000, 500, 300)),
+  1800,
+);
+verifier(
+  "6. total()",
+  essayer(() => total()),
+  0,
+);
 console.log("\nÉtape 3");
-verifier("7. fusionnerReglages", essayer(() => fusionnerReglages({ piment: "fort", couverts: 2 })), { livraison: true, couverts: 2, piment: "fort" });
-verifier("8. quartier de la commande 104", essayer(() => quartierDeLaCommande(commandes, 104)), "Marcory");
-verifier("8. commande inconnue", essayer(() => quartierDeLaCommande(commandes, 999)), "inconnu");
-verifier("9. prixLePlusEleve", essayer(() => prixLePlusEleve(plats)), 3500);
+verifier(
+  "7. fusionnerReglages",
+  essayer(() => fusionnerReglages({ piment: "fort", couverts: 2 })),
+  { livraison: true, couverts: 2, piment: "fort" },
+);
+verifier(
+  "8. quartier de la commande 104",
+  essayer(() => quartierDeLaCommande(commandes, 104)),
+  "Marcory",
+);
+verifier(
+  "8. commande inconnue",
+  essayer(() => quartierDeLaCommande(commandes, 999)),
+  "inconnu",
+);
+verifier(
+  "9. prixLePlusEleve",
+  essayer(() => prixLePlusEleve(plats)),
+  3500,
+);
 bilan();
